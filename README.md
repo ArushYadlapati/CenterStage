@@ -6,7 +6,7 @@ This repository uses [FtcRobotController v9.0](https://github.com/FIRST-Tech-Cha
 
 ## TeleOp Code Modifications
 
-It has been modified by adding the TeleOp code for [GoBilda's Strafer Chassis Kit](https://www.gobilda.com/strafer-chassis-kit-v5/), which uses a mecanum drivetrain. This code was originated from [Game Manual 0's Mecanum Drivetrain Turorial](https://gm0.org/en/latest/docs/software/tutorials/mecanum-drive.html), and then modified to our needs. All of the robot code is in [Java](https://www.java.com/en/) (don't be fooled by the total code type in repo, everything other then Java is not important).
+It has been modified by adding the TeleOp code for [GoBilda's Strafer Chassis Kit](https://www.gobilda.com/strafer-chassis-kit-v5/), which uses a mecanum drivetrain. This code was originated from [Game Manual 0's Mecanum Drivetrain Turorial](https://gm0.org/en/latest/docs/software/tutorials/mecanum-drive.html), and then modified to our needs. All of the robot code is in [Java](https://www.java.com/en/).
 
 
 - Added code that allows the robot to move faster based on how hard the Left Trigger (LT) is pushed/pressed (when not pressed, the default speed is `0.15` or `15%` speed, when fully pressed, the speed is increased to `1` or `100%`).
