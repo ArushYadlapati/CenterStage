@@ -28,7 +28,9 @@
  */
 
 package org.firstinspires.ftc.teamcode;
-import org.apache.commons.math3.geometry.euclidean.threed.Vector3D;
+import android.annotation.SuppressLint;
+
+
 import org.firstinspires.ftc.robotcore.external.matrices.VectorF;
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
@@ -90,10 +92,12 @@ public class AprilTagsDetection extends LinearOpMode {
                     telemetry.addData("Tag", "----------- none - ----------");
                 }
 
-                // Push telemetry to the Driver Station.2
-//                double myTagPoseX = aprilTag.ftcPose.x;
-//                double myTagPoseY = aprilTag.ftcPose.y;
-//                double myTagPoseZ = aprilTag.ftcPose.z;
+                /*
+                Push telemetry to the Driver Station.2
+                double myTagPoseX = aprilTag.ftcPose.x;
+                double myTagPoseY = aprilTag.ftcPose.y;
+                double myTagPoseZ = aprilTag.ftcPose.z;
+                */
 
                 telemetry.update();
 
@@ -146,6 +150,7 @@ public class AprilTagsDetection extends LinearOpMode {
     }
 
     //Function to add telemetry about AprilTag detections.
+    @SuppressLint("DefaultLocale")
     private void telemetryAprilTag() {
         List<VectorF> poses = new ArrayList<VectorF>();
         List<AprilTagDetection> currentDetections = aprilTag.getDetections();
