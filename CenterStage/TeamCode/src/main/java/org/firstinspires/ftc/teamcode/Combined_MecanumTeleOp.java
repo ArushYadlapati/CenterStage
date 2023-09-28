@@ -17,6 +17,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 // Note that REV Driver Hub and REV Driver Station are synonymous.
 public class Combined_MecanumTeleOp extends LinearOpMode {
     double accelerationFactor = 0.15; // Sets the default movement speed to 15% (0.15).
+    boolean servoInPosition0 = true; // Initial state of the servo
 
     // Defines 4 Mecanum Wheel Motors, and then the Viper Slide Motor.
     DcMotor motorFrontLeft;
@@ -38,6 +39,8 @@ public class Combined_MecanumTeleOp extends LinearOpMode {
         motorBackLeft = hardwareMap.dcMotor.get("motorBackLeft"); // Back Left Motor.
         motorFrontRight = hardwareMap.dcMotor.get("motorFrontRight"); // Front Right Motor.
         motorBackRight = hardwareMap.dcMotor.get("motorBackRight"); // Back Right Motor.
+
+        Servo droneLauncher = hardwareMap.get(Servo.class, "droneLauncher");
 
         // Sets all motors to use encoders.
         motorBackLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
@@ -78,6 +81,8 @@ public class Combined_MecanumTeleOp extends LinearOpMode {
         waitForStart(); // Wait for the game to start (driver presses PLAY).
 
         imu.resetYaw(); // Resets imu at the start of code.
+
+        droneLauncher.setPosition(0);
 
         // Run until the end of the match (driver presses STOP).
         if (isStopRequested()) return;
@@ -120,6 +125,18 @@ public class Combined_MecanumTeleOp extends LinearOpMode {
             if (gamepad1.back) {
                 imu.resetYaw();
                 last_button = "back"; // Sets last button to "back".
+            }
+
+// Move the servo to position 1 when the A button is pressed
+            if (gamepad1.a && servoInPosition0) {
+                droneLauncher.setPosition(1);
+                servoInPosition0 = false; // Update servo state
+            }
+
+            // Move the servo to position 0 when the A button is pressed
+            if (gamepad1.a && !servoInPosition0) {
+                droneLauncher.setPosition(0);
+                servoInPosition0 = true; // Update servo state
             }
 
             // If the robot is in Field-Centric Mode, the robot will NOT have a head (meaning that the robot's controls WILL NOT change based off the direction it is facing).

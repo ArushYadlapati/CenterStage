@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
+import com.qualcomm.robotcore.hardware.Servo;
 
 @com.qualcomm.robotcore.eventloop.opmode.Autonomous
 /* Without this, this file will not show in the Autonomous section of the REV Driver Hub.
@@ -45,12 +46,21 @@ public class AutonomousOpMode extends LinearOpMode {
         motorFrontRight.setDirection(DcMotorSimple.Direction.REVERSE);
         motorBackRight.setDirection(DcMotorSimple.Direction.REVERSE);
 
-
         waitForStart(); // Wait for the game to start (driver presses PLAY).
 
         // Commands to move robot goes here
-        turn(500);
-        turn(-500);
+        encoderMove(0,24, 0.30);
+        encoderMove(0,-24, 0.30);
+
+        // encoderMove(0,72, 0.45);
+        // encoderMove(180,72, 0.45);
+
+        // encoderMove(0,72, 0.75);
+        // encoderMove(180,72, 0.75);
+
+
+        //turn(500);
+        //turn(-500);
 
         // Display current motor encoder tick positions.
         telemetry.addData("Front Left Encoder", motorFrontLeft.getCurrentPosition());
@@ -62,7 +72,7 @@ public class AutonomousOpMode extends LinearOpMode {
 
     // Define a method to perform a move action in a specified direction for a given distance in feet.
     // Works best at ~15% maximum speed.
-    private void encoderMove(int direction, int distanceInInches) {
+    private void encoderMove(int direction, int distanceInInches, double speed) {
         // Resets encoder value of viper slide motor to 0.
         motorBackLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         motorBackRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -77,51 +87,51 @@ public class AutonomousOpMode extends LinearOpMode {
         switch (direction) {
             case 0:
             case 360: // Move all 4 mecanum wheels forward
-                frontLeftPower = 0.15;
-                backLeftPower = 0.15;
-                frontRightPower = 0.15;
-                backRightPower = 0.15;
+                frontLeftPower = speed;
+                backLeftPower = speed;
+                frontRightPower = speed;
+                backRightPower = speed;
                 break;
             case 45: // Move the top left and bottom right mecanum wheels forward
-                frontLeftPower = 0.15;
+                frontLeftPower = speed;
                 backLeftPower = 0.0;
                 frontRightPower = 0.0;
-                backRightPower = 0.15;
+                backRightPower = speed;
                 break;
             case 90: // Move the top left and bottom right forward, bottom left and top right backward
-                frontLeftPower = 0.15;
-                backLeftPower = -0.15;
-                frontRightPower = -0.15;
-                backRightPower = 0.15;
+                frontLeftPower = speed;
+                backLeftPower = -speed;
+                frontRightPower = -speed;
+                backRightPower = speed;
                 break;
             case 135: // Move the top right and bottom left mecanum wheels backward
                 frontLeftPower = 0.0;
-                backLeftPower = -0.15;
-                frontRightPower = -0.15;
+                backLeftPower = -speed;
+                frontRightPower = -speed;
                 backRightPower = 0.0;
                 break;
             case 180: // Move the top left and bottom right backward, bottom left and top right backward
-                frontLeftPower = -0.15;
-                backLeftPower = -0.15;
-                frontRightPower = -0.15;
-                backRightPower = -0.15;
+                frontLeftPower = -speed;
+                backLeftPower = -speed;
+                frontRightPower = -speed;
+                backRightPower = -speed;
                 break;
             case 225: // Move the top left and bottom right backward
-                frontLeftPower = -0.15;
+                frontLeftPower = -speed;
                 backLeftPower = 0;
                 frontRightPower = 0;
-                backRightPower = -0.15;
+                backRightPower = -speed;
                 break;
             case 270: // Move the top left and bottom right backward, bottom left and top right forward
-                frontLeftPower = -0.15;
-                backLeftPower = 0.15;
-                frontRightPower = 0.15;
-                backRightPower = -0.15;
+                frontLeftPower = -speed;
+                backLeftPower = speed;
+                frontRightPower = speed;
+                backRightPower = -speed;
                 break;
             case 315: // Move the top right and bottom left mecanum wheels forward
                 frontLeftPower = 0.0;
-                backLeftPower = 0.15;
-                frontRightPower = 0.15;
+                backLeftPower = speed;
+                frontRightPower = speed;
                 backRightPower = 0.0;
                 break;
             default:
@@ -174,18 +184,18 @@ public class AutonomousOpMode extends LinearOpMode {
 
         double frontLeftPower, backLeftPower, frontRightPower, backRightPower;
 
-       if (encoderTicks > 0){
-           frontLeftPower = 0.15;
-           backLeftPower = 0.15;
-           frontRightPower = -0.15;
-           backRightPower = -0.15;
-       }
-       else {
-           frontLeftPower = -0.15;
-           backLeftPower = -0.15;
-           frontRightPower = 0.15;
-           backRightPower = 0.15;
-       }
+        if (encoderTicks > 0){
+            frontLeftPower = 0.15;
+            backLeftPower = 0.15;
+            frontRightPower = -0.15;
+            backRightPower = -0.15;
+        }
+        else {
+            frontLeftPower = -0.15;
+            backLeftPower = -0.15;
+            frontRightPower = 0.15;
+            backRightPower = 0.15;
+        }
 
         // Set target encoder positions for each motor based on encoderTicks input.
         int targetFrontLeft = motorFrontLeft.getCurrentPosition() -encoderTicks;
